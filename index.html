@@ -1,167 +1,221 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Aleah — Maintenance</title>
-  <meta name="description" content="The website is currently under maintenance. Please check back shortly." />
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Aleah — Maintenance</title>
+<meta name="description" content="The website is currently under maintenance. Please check back shortly." />
 
-  <style>
-    :root{
-      --bg-dark: #0b0c10;
-      --text: #e7eef5;
-      --muted: #aab7c4;
-      --accent1: #ff64a6;  /* pink from logo */
-      --accent2: #48c6ef;  /* teal/blue from logo */
-      --card: rgba(255,255,255,0.05);
-      --shadow: 0 8px 30px rgba(0,0,0,0.35);
-      --radius: 20px;
-    }
+<style>
+  /* === Core Theme Variables === */
+  :root {
+    --text: #111;
+    --muted: #444;
+    --accent1: #ff64a6; /* pink */
+    --accent2: #48c6ef; /* teal */
+    --card-bg: rgba(255,255,255,0.65);
+    --shadow: 0 8px 50px rgba(0,0,0,0.15);
+    --radius: 20px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; font-family: "Inter", "Segoe UI", system-ui, sans-serif; color: var(--text); overflow: hidden; }
 
-    @media (prefers-color-scheme: light){
-      :root{
-        --bg-dark: #f7fafc;
-        --text: #111827;
-        --muted: #4b5563;
-        --card: #ffffff;
-        --shadow: 0 8px 25px rgba(17,24,39,0.08);
-      }
-    }
+  /* === Animated Quantum Background === */
+  body {
+    background: radial-gradient(1200px 800px at 20% 30%, rgba(255,100,166,0.25), transparent 60%),
+                radial-gradient(1000px 600px at 80% 70%, rgba(72,198,239,0.25), transparent 60%),
+                linear-gradient(135deg, #ffffff, #f9f9ff);
+    position: relative;
+    display: grid;
+    place-items: center;
+  }
 
-    *{box-sizing:border-box;}
-    html,body{height:100%;margin:0;padding:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;}
-    body{
-      background: radial-gradient(900px 600px at 10% 20%, rgba(255,100,166,0.08), transparent 60%),
-                  radial-gradient(900px 600px at 90% 80%, rgba(72,198,239,0.08), transparent 60%),
-                  var(--bg-dark);
-      color:var(--text);
-      display:grid;
-      place-items:center;
-      text-align:center;
-      padding:2rem;
-    }
+  canvas#bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    opacity: 0.6;
+  }
 
-    .card{
-      background:var(--card);
-      backdrop-filter: blur(10px);
-      border-radius:var(--radius);
-      box-shadow:var(--shadow);
-      padding:40px 32px 50px;
-      max-width:640px;
-      width:100%;
-      animation: fadeIn 1s ease-in-out both;
-    }
-    @keyframes fadeIn{
-      from{opacity:0; transform:translateY(10px);}
-      to{opacity:1; transform:translateY(0);}
-    }
+  /* === Glass Card === */
+  .card {
+    position: relative;
+    z-index: 2;
+    max-width: 640px;
+    width: 92%;
+    background: var(--card-bg);
+    backdrop-filter: blur(16px) saturate(180%);
+    border: 1px solid rgba(255,255,255,0.4);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    text-align: center;
+    padding: 48px 36px;
+    animation: fadeIn 1.2s ease both;
+  }
 
-    .logo-img{
-      width:180px;
-      height:auto;
-      margin-bottom:16px;
-      animation: float 3s ease-in-out infinite;
-    }
-    @keyframes float{
-      0%,100%{transform:translateY(0);}
-      50%{transform:translateY(-6px);}
-    }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
 
-    h1{
-      font-size:clamp(1.6rem,3vw,2rem);
-      margin:10px 0 6px;
-    }
-    p{
-      color:var(--muted);
-      font-size:1rem;
-      line-height:1.6;
-      margin:0.5rem 0;
-    }
+  .logo {
+    width: 180px;
+    height: auto;
+    margin-bottom: 20px;
+    animation: float 3s ease-in-out infinite;
+  }
+  @keyframes float {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+  }
 
-    .progress{
-      width:100%;
-      height:8px;
-      border-radius:999px;
-      background:rgba(255,255,255,0.15);
-      margin:24px 0 8px;
-      overflow:hidden;
-    }
-    .progress span{
-      display:block;
-      height:100%;
-      width:40%;
-      background:linear-gradient(90deg,var(--accent2),var(--accent1));
-      animation:slide 2.8s ease-in-out infinite;
-    }
-    @keyframes slide{
-      0%{transform:translateX(-110%);}
-      50%{transform:translateX(40%);}
-      100%{transform:translateX(110%);}
-    }
+  h1 {
+    font-size: clamp(1.6rem, 3vw, 2rem);
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+  p {
+    color: var(--muted);
+    line-height: 1.6;
+    font-size: 1rem;
+  }
 
-    .dots{display:inline-flex;gap:6px;margin-left:4px;}
-    .dot{
-      width:6px;height:6px;border-radius:50%;
-      background:var(--accent2);
-      opacity:.8;
-      animation:bounce 1.2s infinite;
-    }
-    .dot:nth-child(2){animation-delay:.15s;}
-    .dot:nth-child(3){animation-delay:.3s;}
-    @keyframes bounce{
-      0%,80%,100%{transform:translateY(0);}
-      40%{transform:translateY(-6px);}
-    }
+  .progress {
+    width: 100%;
+    height: 6px;
+    border-radius: 999px;
+    background: rgba(0,0,0,0.1);
+    margin: 24px 0 10px;
+    overflow: hidden;
+  }
+  .progress span {
+    display: block;
+    width: 35%;
+    height: 100%;
+    background: linear-gradient(90deg,var(--accent2),var(--accent1));
+    animation: load 3s ease-in-out infinite;
+  }
+  @keyframes load {
+    0% { transform: translateX(-110%); }
+    50% { transform: translateX(30%); }
+    100% { transform: translateX(110%); }
+  }
 
-    .contact{
-      margin-top:18px;
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      padding:10px 14px;
-      border-radius:12px;
-      border:1px dashed rgba(255,255,255,0.18);
-      background:rgba(255,255,255,0.06);
-      color:var(--text);
-      text-decoration:none;
-      font-weight:600;
-      transition:all .2s;
-    }
-    .contact:hover{
-      border-color:var(--accent1);
-      background:rgba(255,255,255,0.1);
-      text-decoration:none;
-    }
+  .dots {
+    display: inline-flex;
+    gap: 6px;
+    margin-left: 4px;
+  }
+  .dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--accent1);
+    opacity: 0.7;
+    animation: bounce 1.2s infinite;
+  }
+  .dot:nth-child(2) { animation-delay: .15s; }
+  .dot:nth-child(3) { animation-delay: .3s; }
+  @keyframes bounce {
+    0%,80%,100% { transform: translateY(0); }
+    40% { transform: translateY(-6px); }
+  }
 
-    footer{
-      margin-top:20px;
-      font-size:13px;
-      color:var(--muted);
-    }
-  </style>
+  .contact {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 10px 14px;
+    border-radius: 12px;
+    background: rgba(255,255,255,0.6);
+    border: 1px dashed rgba(0,0,0,0.15);
+    text-decoration: none;
+    color: var(--text);
+    font-weight: 600;
+    transition: all 0.3s ease;
+  }
+  .contact:hover {
+    background: linear-gradient(90deg,var(--accent2),var(--accent1));
+    color: white;
+    border-color: transparent;
+  }
+
+  footer {
+    font-size: 13px;
+    color: var(--muted);
+    margin-top: 18px;
+  }
+</style>
 </head>
 <body>
-  <main class="card">
-    <img src="logo-als.png" alt="Aleah logo" class="logo-img" />
+<canvas id="bg"></canvas>
 
-    <h1>We’re improving things behind the scenes</h1>
-    <p>
-      The website is currently under maintenance. Please come back shortly
-      <span class="dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span></span>
-    </p>
+<main class="card">
+  <img src="logo-als.png" alt="Aleah logo" class="logo" />
+  <h1>We’re improving things behind the scenes</h1>
+  <p>The website is currently under maintenance. Please come back shortly
+    <span class="dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span></span>
+  </p>
 
-    <div class="progress"><span></span></div>
-    <p style="margin-top:0;">Thank you for your patience.</p>
+  <div class="progress"><span></span></div>
+  <p>Thank you for your patience.</p>
 
-    <a class="contact" href="mailto:info@aleah.tech">
-      ✉️ info@aleah.tech
-    </a>
+  <a href="mailto:info@aleah.tech" class="contact">✉️ info@aleah.tech</a>
+  <footer>© <span id="year"></span> Aleah. All rights reserved.</footer>
+</main>
 
-    <footer>© <span id="year"></span> Aleah. All rights reserved.</footer>
-  </main>
+<script>
+  // Year auto-update
+  document.getElementById("year").textContent = new Date().getFullYear();
 
-  <script>
-    document.getElementById("year").textContent = new Date().getFullYear();
-  </script>
+  // === Subtle animated "quantum network" background ===
+  const canvas = document.getElementById("bg");
+  const ctx = canvas.getContext("2d");
+  let w, h, particles;
+
+  function resize(){
+    w = canvas.width = window.innerWidth;
+    h = canvas.height = window.innerHeight;
+    particles = Array.from({length: 50}, () => ({
+      x: Math.random()*w,
+      y: Math.random()*h,
+      vx: (Math.random()-0.5)*0.6,
+      vy: (Math.random()-0.5)*0.6
+    }));
+  }
+  function draw(){
+    ctx.clearRect(0,0,w,h);
+    for(let p of particles){
+      p.x+=p.vx; p.y+=p.vy;
+      if(p.x<0||p.x>w) p.vx*=-1;
+      if(p.y<0||p.y>h) p.vy*=-1;
+      ctx.beginPath();
+      ctx.arc(p.x,p.y,1.5,0,Math.PI*2);
+      ctx.fillStyle="rgba(0,0,0,0.3)";
+      ctx.fill();
+    }
+    for(let i=0;i<particles.length;i++){
+      for(let j=i+1;j<particles.length;j++){
+        let a=particles[i],b=particles[j];
+        let dx=a.x-b.x, dy=a.y-b.y, dist=Math.hypot(dx,dy);
+        if(dist<120){
+          ctx.strokeStyle=`rgba(72,198,239,${1-dist/120})`;
+          ctx.lineWidth=0.5;
+          ctx.beginPath();
+          ctx.moveTo(a.x,a.y);
+          ctx.lineTo(b.x,b.y);
+          ctx.stroke();
+        }
+      }
+    }
+    requestAnimationFrame(draw);
+  }
+
+  window.addEventListener("resize", resize);
+  resize();
+  draw();
+</script>
 </body>
 </html>
